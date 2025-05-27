@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Implementasi Komponen HTML & CSS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 0;
+      background: white;
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    h1 {
+      font-size: 3rem;
+      background: linear-gradient(45deg, #d47a04, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(0, 0, 0, 0.8);
+      margin-bottom: 2rem;
+    }
+
+    section {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+      backdrop-filter: blur(15px);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(31, 38, 135, 0.3);
+    }
+
+    h2 {
+      color: #2c3e50;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+
+    pre {
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 15px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    pre::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      width: 12px;
+      height: 12px;
+      background: #ff5f56;
+      border-radius: 50%;
+      box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27ca3f;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      color: #e74c3c;
+      background: rgba(231, 76, 60, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    pre code {
+      color: #ffffff;
+      background: none;
+      padding: 0;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+      border-collapse: collapse;
+      padding: 12px 15px;
+    }
+
+    table {
+      width: 100%;
+      margin: 1rem 0;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: 600;
+    }
+
+    td {
+      background: rgba(255,255,255,0.8);
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    form {
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid rgba(102, 126, 234, 0.2);
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.9);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+      transform: translateY(-2px);
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 25px rgba(102, 126, 234, 0.6);
+    }
+
+    .css-example {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      border-left: 5px solid #ff6b6b;
+    }
+
+    .grid-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .grid-item {
+      background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .grid-item:hover {
+      transform: scale(1.05);
+    }
+
+    .flex-demo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .flex-item {
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      padding: 1rem;
+      border-radius: 10px;
+      min-width: 150px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .flex-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .animation-demo {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border-radius: 50%;
+      margin: 2rem auto;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .responsive-note {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 10px; }
+      h1 { font-size: 2rem; }
+      section { padding: 1.5rem; }
+      .flex-demo { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Implementasi Komponen HTML & CSS</h1>
+    </header>
+
+    <section>
+      <h2>1. Struktur Dasar HTML</h2>
+      <p>HTML memiliki struktur dasar yang terdiri dari tag <code>&lt;!DOCTYPE&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, dan <code>&lt;body&gt;</code>.</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Judul Halaman&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Konten halaman di sini
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>2. Heading dan Paragraf</h2>
+      <p>HTML menyediakan tag <code>&lt;h1&gt;</code> hingga <code>&lt;h6&gt;</code> untuk judul dan <code>&lt;p&gt;</code> untuk paragraf.</p>
+      <pre><code>&lt;h1&gt;Judul Utama&lt;/h1&gt;
+&lt;h2&gt;Sub Judul&lt;/h2&gt;
+&lt;p&gt;Ini adalah sebuah paragraf dengan teks yang menjelaskan sesuatu.&lt;/p&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>3. Tautan dan Gambar</h2>
+      <p>Tautan menggunakan tag <code>&lt;a&gt;</code> dan gambar menggunakan <code>&lt;img&gt;</code>.</p>
+      <pre><code>&lt;a href="https://example.com" target="_blank"&gt;Kunjungi Website&lt;/a&gt;
+&lt;img src="gambar.jpg" alt="Deskripsi Gambar" width="300" height="200"&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>4. List (Daftar)</h2>
+      <p>Ada dua jenis daftar: tidak berurutan (<code>&lt;ul&gt;</code>) dan berurutan (<code>&lt;ol&gt;</code>), yang berisi item <code>&lt;li&gt;</code>.</p>
+      <pre><code>&lt;ul&gt;
+  &lt;li&gt;Apel&lt;/li&gt;
+  &lt;li&gt;Jeruk&lt;/li&gt;
+  &lt;li&gt;Mangga&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Persiapan bahan&lt;/li&gt;
+  &lt;li&gt;Proses memasak&lt;/li&gt;
+  &lt;li&gt;Penyajian&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+    </section>
+
+    <section>
+      <h2>5. Tabel</h2>
+      <p>Tabel dibuat menggunakan tag <code>&lt;table&gt;</code>, baris <code>&lt;tr&gt;</code>, kolom <code>&lt;td&gt;</code>, dan judul kolom <code>&lt;th&gt;</code>.</p>
+      <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Nama&lt;/th&gt;
+      &lt;th&gt;Umur&lt;/th&gt;
+      &lt;th&gt;Kota&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Andi&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td&gt;Jakarta&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Sari&lt;/td&gt;
+      &lt;td&gt;23&lt;/td&gt;
+      &lt;td&gt;Bandung&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+      <br>
+      <strong>Hasil:</strong><br>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Umur</th>
+            <th>Kota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Andi</td>
+            <td>25</td>
+            <td>Jakarta</td>
+          </tr>
+          <tr>
+            <td>Sari</td>
+            <td>23</td>
+            <td>Bandung</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>6. Formulir (Form)</h2>
+      <p>HTML memiliki banyak elemen form: <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;button&gt;</code>, dll.</p>
+      <pre><code>&lt;form action="#" method="POST"&gt;
+  &lt;label for="nama"&gt;Nama Lengkap:&lt;/label&gt;
+  &lt;input type="text" id="nama" name="nama" required&gt;
+
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+
+  &lt;label&gt;Jenis Kelamin:&lt;/label&gt;
+  &lt;input type="radio" id="laki" name="jk" value="L"&gt;
+  &lt;label for="laki"&gt;Laki-laki&lt;/label&gt;
+  &lt;input type="radio" id="perempuan" name="jk" value="P"&gt;
+  &lt;label for="perempuan"&gt;Perempuan&lt;/label&gt;
+
+  &lt;label&gt;Hobi:&lt;/label&gt;
+  &lt;input type="checkbox" id="musik" name="hobi" value="musik"&gt;
+  &lt;label for="musik"&gt;Musik&lt;/label&gt;
+  &lt;input type="checkbox" id="olahraga" name="hobi" value="olahraga"&gt;
+  &lt;label for="olahraga"&gt;Olahraga&lt;/label&gt;
+
+  &lt;label for="kota"&gt;Kota:&lt;/label&gt;
+  &lt;select id="kota" name="kota"&gt;
+    &lt;option value=""&gt;Pilih Kota&lt;/option&gt;
+    &lt;option value="jakarta"&gt;Jakarta&lt;/option&gt;
+    &lt;option value="bandung"&gt;Bandung&lt;/option&gt;
+    &lt;option value="surabaya"&gt;Surabaya&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;label for="pesan"&gt;Pesan:&lt;/label&gt;
+  &lt;textarea id="pesan" name="pesan" rows="4"&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Kirim Data&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+      <form>
+        <label for="nama">Nama Lengkap:</label>
+        <input type="text" id="nama" name="nama" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label>Jenis Kelamin:</label>
+        <input type="radio" id="laki" name="jk" value="L"> Laki-laki
+        <input type="radio" id="perempuan" name="jk" value="P"> Perempuan
+
+        <label>Hobi:</label>
+        <input type="checkbox" id="musik" name="hobi" value="musik"> Musik
+        <input type="checkbox" id="olahraga" name="hobi" value="olahraga"> Olahraga
+
+        <label for="kota">Kota:</label>
+        <select id="kota" name="kota">
+          <option value="">Pilih Kota</option>
+          <option value="jakarta">Jakarta</option>
+          <option value="bandung">Bandung</option>
+          <option value="surabaya">Surabaya</option>
+        </select>
+
+        <label for="pesan">Pesan:</label>
+        <textarea id="pesan" name="pesan" rows="4"></textarea>
+
+        <button type="submit">Kirim Data</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>7. CSS Selector & Properties</h2>
+      <p>CSS menggunakan selector untuk memilih elemen HTML dan menerapkan styling. Berikut adalah jenis-jenis selector utama:</p>
+      
+      <div class="css-example">
+        <h3>A. Selector Dasar</h3>
+        <pre><code>/* Element Selector */
+h1 { color: blue; }
+
+/* Class Selector */
+.highlight { background-color: yellow; }
+
+/* ID Selector */
+#header { font-size: 24px; }
+
+/* Universal Selector */
+* { margin: 0; padding: 0; }</code></pre>
+      </div>
+
+      <div class="css-example">
+        <h3>B. Selector Kombinasi</h3>
+        <pre><code>/* Descendant Selector */
+div p { color: gray; }
+
+/* Child Selector */
+ul > li { list-style: none; }
+
+/* Adjacent Sibling */
+h1 + p { margin-top: 0; }
+
+/* General Sibling */
+h1 ~ p { font-style: italic; }</code></pre>
+      </div>
+
+      <div class="css-example">
+        <h3>C. Pseudo-classes & Pseudo-elements</h3>
+        <pre><code>/* Pseudo-classes */
+a:hover { color: red; }
+input:focus { border-color: blue; }
+li:nth-child(odd) { background: #f0f0f0; }
+
+/* Pseudo-elements */
+p::first-line { font-weight: bold; }
+p::before { content: "→ "; }</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>8. CSS Box Model</h2>
+      <p>Box Model adalah konsep fundamental dalam CSS yang menjelaskan bagaimana elemen HTML ditampilkan sebagai kotak.</p>
+      
+      <div class="css-example">
+        <pre><code>.box {
+  /* Content area */
+  width: 200px;
+  height: 100px;
+  
+  /* Padding - ruang dalam */
+  padding: 20px;
+  
+  /* Border - garis tepi */
+  border: 2px solid #333;
+  
+  /* Margin - ruang luar */
+  margin: 10px;
+  
+  /* Box-sizing untuk mengontrol perhitungan ukuran */
+  box-sizing: border-box; /* width termasuk padding & border */
+}</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>9. CSS Layout - Flexbox</h2>
+      <p>Flexbox adalah sistem layout yang memudahkan pengaturan elemen dalam satu dimensi (horizontal atau vertikal).</p>
+      
+      <div class="css-example">
+        <pre><code>.flex-container {
+  display: flex;
+  justify-content: space-between; /* main axis alignment */
+  align-items: center;           /* cross axis alignment */
+  flex-direction: row;           /* atau column */
+  flex-wrap: wrap;               /* untuk wrapping */
+  gap: 1rem;                     /* jarak antar item */
+}
+
+.flex-item {
+  flex: 1;        /* grow, shrink, basis */
+  flex-grow: 1;   /* kemampuan membesar */
+  flex-shrink: 0; /* kemampuan mengecil */
+  flex-basis: 200px; /* ukuran dasar */
+}</code></pre>
+      </div>
+
+      <strong>Contoh Flexbox:</strong>
+      <div class="flex-demo">
+        <div class="flex-item">Item 1</div>
+        <div class="flex-item">Item 2</div>
+        <div class="flex-item">Item 3</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>10. CSS Grid Layout</h2>
+      <p>CSS Grid adalah sistem layout dua dimensi yang sangat powerful untuk membuat layout kompleks.</p>
+      
+      <div class="css-example">
+        <pre><code>.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolom sama besar */
+  grid-template-rows: auto;
+  gap: 1rem;                             /* jarak antar grid */
+  
+  /* Atau dengan area template */
+  grid-template-areas: 
+    "header header header"
+    "sidebar main main"
+    "footer footer footer";
+}
+
+.grid-item {
+  grid-column: 1 / 3;  /* dari kolom 1 sampai 3 */
+  grid-row: 1 / 2;     /* dari row 1 sampai 2 */
+}</code></pre>
+      </div>
+
+      <strong>Contoh Grid:</strong>
+      <div class="grid-demo">
+        <div class="grid-item">Grid 1</div>
+        <div class="grid-item">Grid 2</div>
+        <div class="grid-item">Grid 3</div>
+        <div class="grid-item">Grid 4</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>11. CSS Colors & Gradients</h2>
+      <p>CSS menyediakan berbagai cara untuk mengatur warna dan gradasi.</p>
+      
+      <div class="css-example">
+        <pre><code>/* Cara menulis warna */
+.color-examples {
+  /* Nama warna */
+  color: red;
+  
+  /* Hexadecimal */
+  background-color: #ff6b6b;
+  
+  /* RGB */
+  border-color: rgb(255, 107, 107);
+  
+  /* RGBA (dengan transparency) */
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+  
+  /* HSL */
+  color: hsl(0, 79%, 72%);
+}
+
+/* Linear Gradient */
+.gradient-linear {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  background: linear-gradient(to right, red, blue, green);
+}
+
+/* Radial Gradient */
+.gradient-radial {
+  background: radial-gradient(circle, #ff6b6b, #4ecdc4);
+}</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>12. CSS Animations & Transitions</h2>
+      <p>CSS dapat membuat animasi dan transisi yang smooth tanpa JavaScript.</p>
+      
+      <div class="css-example">
+        <pre><code>/* Transitions - untuk perubahan smooth */
+.transition-example {
+  transition: all 0.3s ease;
+  transition-property: transform, opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.transition-example:hover {
+  transform: translateY(-10px) scale(1.1);
+  opacity: 0.8;
+}
+
+/* Keyframe Animations */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animated-element {
+  animation: pulse 2s infinite ease-in-out;
+  animation-delay: 0.5s;
+  animation-fill-mode: both;
+}</code></pre>
+      </div>
+
+      <strong>Contoh Animasi:</strong>
+      <div class="animation-demo"></div>
+    </section>
+
+    <section>
+      <h2>13. Responsive Design</h2>
+      <p>Responsive design memastikan website terlihat baik di semua ukuran layar menggunakan media queries.</p>
+      
+      <div class="css-example">
+        <pre><code>/* Mobile First Approach */
+.responsive-container {
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .responsive-container {
+    width: 80%;
+    padding: 2rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .responsive-container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 3rem;
+  }
+}
+
+/* High Resolution Displays */
+@media (min-resolution: 2dppx) {
+  .high-res-image {
+    background-image: url('image@2x.jpg');
+  }
+}</code></pre>
+      </div>
+
+      <div class="responsive-note">
+        💡 Tip: Selalu gunakan <code>meta viewport</code> tag di HTML: 
+        <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>
+      </div>
+    </section>
+
+    <section>
+      <h2>14. CSS Modern Features</h2>
+      <p>Fitur-fitur CSS modern yang berguna untuk membuat desain yang lebih advanced.</p>
+      
+      <div class="css-example">
+        <h3>A. CSS Variables (Custom Properties)</h3>
+        <pre><code>:root {
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --border-radius: 10px;
+  --box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.modern-card {
+  background: var(--primary-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}</code></pre>
+      </div>
+
+      <div class="css-example">
+        <h3>B. CSS Functions</h3>
+        <pre><code>/* calc() untuk perhitungan */
+.calculated-width {
+  width: calc(100% - 40px);
+  height: calc(100vh - 100px);
+}
+
+/* cl
